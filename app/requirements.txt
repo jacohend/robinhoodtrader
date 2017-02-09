@@ -1,0 +1,10 @@
+Flask-SQLAlchemy
+redlock-py
+twilio
+celery
+supervisor-stdout
+geopy
+geocoder
+rx
+hazelcast-python-client
+python-consul

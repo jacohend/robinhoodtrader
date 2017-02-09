@@ -1,0 +1,35 @@
+version: "3"
+services:
+    redis:
+        image: redis
+        networks:
+            - py
+    pycore:
+        image: pycore
+        environment:
+            DB_USER: 'root'
+            DB_PASS: 'abcd1234'
+            DB_HOST: 'postgres'
+            DB_NAME: 'wyre'
+            SERVER_ENV: 'Development'
+            APP_NAME: 'app'
+            SECRET_KEY: 'key'
+            SECURITY_PASSWORD_SALT: 'salt'
+        networks:
+            - py
+        ports:
+            - "80:80"
+    mysql:
+        image: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: 'abcd1234'
+            MYSQL_DATABASE: 'wyre'
+        ports:
+            - "3306:3306"
+        volumes:
+            - "~/swarm/mysql:/var/lib/mysql"
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+        networks:
+            - py
+networks:
+    py:

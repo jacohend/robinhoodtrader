@@ -3,9 +3,7 @@ from flask import render_template, request, redirect, make_response
 from celery import Celery
 import logging
 
-from moderation import *
 from database import db
-from utils import *
 from application import *
 import models
 from models import *
@@ -15,7 +13,7 @@ from functools import wraps
 # Views  ======================================================================
 @app.route('/status')
 def home():
-    return make_response(200)
+    return make_response(json.dumps({"status":"ok"}),200)
 
 
 @celery.task(bind=True)
@@ -31,7 +29,9 @@ def long_task(self):
 
 @app.before_first_request
 def bootstrap_app():
+    db.init_app(app)
     long_task.delay()
+    return
 
 
 @app.teardown_request
@@ -53,7 +53,7 @@ def wrap_teardown_func(teardown_func):
     return log_teardown_error
 
 
-def main(app)
+def main(app):
     if app.teardown_request_funcs:
         for bp, func_list in app.teardown_request_funcs.items():
             for i, func in enumerate(func_list):

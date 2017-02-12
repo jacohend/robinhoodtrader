@@ -28,8 +28,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'].fo
 	)
 app.config['APP_NAME'] = app.config['APP_NAME'].format("PyCore")
 app.config['SECRET_KEY'] = app.config['SECRET_KEY'].format(os.environ.get('SECRET_KEY', 'SECRET'))
-app.config['SECURITY_PASSWORD_SALT'] = app.config['SECURITY_PASSWORD_SALT'].format(os.environ.get('SECURITY_PASSWORD_SALT'))
 app.config['CELERY_BROKER_URL'] =  'redis://redis:6379/0'
 app.config['CELERY_RESULT_BACKEND'] = "db+{}".format(app.config['SQLALCHEMY_DATABASE_URI'])
 celery = make_celery(app)
-redlock = Redlock([{"host": app.config.REDIS}])
+redlock = Redlock([{"host": app.config['REDIS']}])

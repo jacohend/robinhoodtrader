@@ -18,7 +18,17 @@ services:
         networks:
             - py
         ports:
-            - "80:80"
+            - "80:8008"
+    portainer:
+        image: portainer/portainer
+        command: -H unix:///var/run/docker.sock
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        ports:
+            - "9000:9000"
+        deploy:
+            placement:
+                constraints: [node.role == manager]
     mysql:
         image: mysql
         environment:

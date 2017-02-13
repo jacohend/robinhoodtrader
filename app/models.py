@@ -22,11 +22,13 @@ class Serialize():
             setattr(self, c.name, dict[c.name])
 
 
-class Sample(db.Model, Serialize):
-    __tablename__ = 'tag'
+class ACTION(db.Model, Serialize):
+    __tablename__ = 'action'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
-    description = db.Column(db.TEXT)
-    created = db.Column(db.Integer)
-
-
+    action = db.Column(db.TEXT)
+    evidence = db.Column(db.Integer)
+    security = db.Column(db.TEXT)
+    price = db.Column(db.Float)
+    amount = db.Column(db.Integer)
+    taken = db.Column(db.Integer)
+ 

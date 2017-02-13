@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, make_response
 from celery import Celery
 import logging
 
+
 from database import db
 from application import *
 import models
@@ -21,7 +22,6 @@ def long_task(self):
     sys.stderr.write("starting long-running task")
     while(True):
         try:
-            pass
         except Exception as e:
             traceback.print_exc()
         time.sleep(1)

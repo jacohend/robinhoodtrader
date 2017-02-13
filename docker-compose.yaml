@@ -8,9 +8,9 @@ services:
         image: pycore
         environment:
             DB_USER: 'root'
-            DB_PASS: 'abcd1234'
+            DB_PASS: 'robinhood'
             DB_HOST: 'postgres'
-            DB_NAME: 'wyre'
+            DB_NAME: 'robin'
             SERVER_ENV: 'Development'
             APP_NAME: 'app'
             SECRET_KEY: 'key'
@@ -32,13 +32,26 @@ services:
     mysql:
         image: mysql
         environment:
-            MYSQL_ROOT_PASSWORD: 'abcd1234'
-            MYSQL_DATABASE: 'wyre'
+            MYSQL_ROOT_PASSWORD: 'robinhood'
+            MYSQL_DATABASE: 'robin'
         ports:
             - "3306:3306"
         volumes:
             - "~/swarm/mysql:/var/lib/mysql"
         command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+        networks:
+            - py
+    influx:
+        image: "influxdb:latest"
+        environment:
+            INFLUXDB_GRAPHITE_ENABLED: 'true'
+            INFLUXDB_ADMIN_ENABLED: 'true'
+        ports:
+            - "8083:8083"
+            - "8086:8086"
+            - "2003"
+        volumes:
+            - "~/influxdb:/var/lib/influxdb"
         networks:
             - py
 networks:

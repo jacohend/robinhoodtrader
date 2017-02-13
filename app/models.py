@@ -22,11 +22,21 @@ class Serialize():
             setattr(self, c.name, dict[c.name])
 
 
+class STRATEGY(db.Model, Serialize):
+    __tablename__ = 'strategy'
+    id = db.Column(db.Integer, primary_key=True)
+    stock = db.COLUMN(db.TEXT)
+    regression = db.COLUMN(db.TEXT)
+    target_criteria = db.COLUMN(db.Float)
+    action = db.COLUMN(db.Integer)
+    created = db.Column(db.Integer)
+
+
 class ACTION(db.Model, Serialize):
     __tablename__ = 'action'
     id = db.Column(db.Integer, primary_key=True)
     action = db.Column(db.TEXT)
-    evidence = db.Column(db.Integer)
+    evidence = db.Column(db.TEXT)
     security = db.Column(db.TEXT)
     price = db.Column(db.Float)
     amount = db.Column(db.Integer)

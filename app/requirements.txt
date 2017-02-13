@@ -8,3 +8,4 @@ geocoder
 rx
 hazelcast-python-client
 python-consul
+influxdb

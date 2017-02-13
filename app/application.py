@@ -26,6 +26,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'].fo
 	os.environ.get('DB_HOST'),
 	os.environ.get('DB_NAME')
 	)
+app.config['ROBINHOOD_USER'] = os.environ.get('ROBINHOOD_USER')
+app.config['ROBINHOOD_PASS'] = os.environ.get('ROBINHOOD_PASS')
 app.config['APP_NAME'] = app.config['APP_NAME'].format("PyCore")
 app.config['SECRET_KEY'] = app.config['SECRET_KEY'].format(os.environ.get('SECRET_KEY', 'SECRET'))
 app.config['CELERY_BROKER_URL'] =  'redis://redis:6379/0'

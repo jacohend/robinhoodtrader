@@ -2,7 +2,7 @@ import json, inspect, traceback, time, sys
 from flask import render_template, request, redirect, make_response
 from celery import Celery
 import logging
-
+from trader import Trader
 
 from database import db
 from application import *
@@ -22,6 +22,9 @@ def long_task(self):
     sys.stderr.write("starting long-running task")
     while(True):
         try:
+            trader = Trader(app.config)
+            trader.get_positions()
+            trader.refresh_positions()
         except Exception as e:
             traceback.print_exc()
         time.sleep(1)

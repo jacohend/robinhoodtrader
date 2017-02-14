@@ -25,10 +25,10 @@ class Serialize():
 class STRATEGY(db.Model, Serialize):
     __tablename__ = 'strategy'
     id = db.Column(db.Integer, primary_key=True)
-    stock = db.COLUMN(db.TEXT)
-    regression = db.COLUMN(db.TEXT)
-    target_criteria = db.COLUMN(db.Float)
-    action = db.COLUMN(db.Integer)
+    stock = db.Column(db.TEXT)
+    regression = db.Column(db.TEXT)
+    target_criteria = db.Column(db.Float)
+    action = db.Column(db.Integer)
     created = db.Column(db.Integer)
 
 

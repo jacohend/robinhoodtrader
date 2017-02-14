@@ -3,6 +3,8 @@ from flask import render_template, request, redirect, make_response
 from celery import Celery
 import logging
 from trader import Trader
+import redlock
+
 
 from database import db
 from application import *
@@ -22,12 +24,17 @@ def long_task(self):
     sys.stderr.write("starting long-running task")
     while(True):
         try:
-            trader = Trader(app.config)
-            trader.get_positions()
-            trader.refresh_positions()
+            lock = redlock.lock("trade", 50000)
+            if lock:
+                trader = Trader(app.config)
+                trader.get_positions()
+                trader.refresh_positions()
+                redlock.unlock(lock)
+
         except Exception as e:
             traceback.print_exc()
-        time.sleep(1)
+            redlock.unlock(lock)
+        time.sleep(900)
 
 
 @app.before_first_request

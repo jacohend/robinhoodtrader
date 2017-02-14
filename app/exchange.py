@@ -21,7 +21,7 @@ class RobinhoodExchange(object):
 	def get_instruments(self):
 		return self.robin.instruments()
 
-	def get_owned_securities(self, id):
+	def get_owned_securities(self):
 		return self.robin.securities_owned()
 
 	def get_positions(self):
@@ -29,4 +29,4 @@ class RobinhoodExchange(object):
 
 
 	def get_quote(self, instrument):
-		return quote_data(instrument)
+		return self.robin.quote_data(instrument)
